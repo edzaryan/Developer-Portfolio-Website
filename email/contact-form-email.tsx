@@ -1,10 +1,10 @@
-import React from "react";
-import { Html, Body, Head, Heading, Hr, Container, Preview, Section, Text } from "@react-email/components";
-import { Tailwind } from "@react-email/tailwind";
+import React from "react"
+import { Html, Body, Head, Heading, Hr, Container, Preview, Section, Text } from "@react-email/components"
+import { Tailwind } from "@react-email/tailwind"
 
 type ContactFormEmailProps = {
-    message: string;
-    email: string;
+    message: string
+    email: string
 }
 
 export default function ContactFormEmail({ message, email }: ContactFormEmailProps) {
