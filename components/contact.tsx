@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { motion } from "framer-motion"
 import SectionHeading from "@/components/section-heading"
 import { FaPaperPlane } from "react-icons/fa"
@@ -8,12 +8,15 @@ import { useSectionInView } from "@/lib/hooks"
 
 export default function Contact() {
     const { ref } = useSectionInView("Contact")
+    const formRef = useRef<HTMLFormElement>(null)
     const [error, setError] = useState<string | null>(null)
-
+    const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
+
         setError(null)
+        setSuccessMessage(null)
 
         const formData = new FormData(e.currentTarget)
         const data = Object.fromEntries(formData.entries())
@@ -21,8 +24,8 @@ export default function Contact() {
         const email = data.email as string
         const message = data.message as string
 
-        if (email.length > 100) {
-            setError("Email must not exceed 100 characters.")
+        if (email.length > 50) {
+            setError("Email must not exceed 50 characters.")
             return
         }
 
@@ -35,16 +38,18 @@ export default function Contact() {
             const response = await fetch("/api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                body: JSON.stringify({ email, message }),
             })
 
             if (!response.ok) {
                 throw new Error("Failed to send email")
             }
 
-            console.log("Email sent successfully!")
+            setSuccessMessage("Your message has been sent successfully!")
+
+            formRef.current?.reset()
+
         } catch (error) {
-            console.error("Failed to send email:", error)
             setError("Failed to send email. Please try again later.")
         }
     }
@@ -64,7 +69,24 @@ export default function Contact() {
                 <div className="text-gray-700 text-center">
                     Please contact me directly at <a className="underline" href="mailto:edzaryan@gmail.com">edzaryan@gmail.com</a> or through the form below.
                 </div>
-                <form className="mt-10 flex gap-4 flex-col">
+
+                {error && (
+                    <div className="text-red-500 text-center mt-4">
+                        {error}
+                    </div>
+                )}
+
+                {successMessage && (
+                    <div className="text-green-500 text-center mt-4">
+                        {successMessage}
+                    </div>
+                )}
+
+                <form
+                    className="mt-10 flex gap-4 flex-col"
+                    onSubmit={handleSubmit}
+                    ref={formRef}
+                >
                     <input
                         className="h-14 px-4 rounded-lg borderBlack"
                         type="email"

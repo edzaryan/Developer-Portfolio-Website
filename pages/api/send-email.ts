@@ -1,8 +1,11 @@
+// pages/api/send-email.ts
 import { NextApiRequest, NextApiResponse } from "next"
 import { sendEmail } from "@/services/emailService"
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+    console.log("*** API Route Hit ***");
+
     if (req.method !== "POST") {
         return res.status(405).json({ error: "Method not allowed" })
     }
@@ -22,9 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
+        console.log("Sending email...");
         const result = await sendEmail({ email, message })
         return res.status(200).json(result)
     } catch (error) {
+        console.error("Failed to send email:", error)
         return res.status(500).json({
             error: error instanceof Error ? error.message : "An unexpected error occurred.",
         })

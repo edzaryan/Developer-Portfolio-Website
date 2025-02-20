@@ -7,16 +7,18 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 export async function sendEmail({ email, message }: { email: string; message: string }) {
     try {
         await resend.emails.send({
-            from: "Contact From <yeghiazaryanedgar93@gmail.com>",
+            from: "Portfolio Contact <yeghiazaryanedgar93@gmail.com>",
             to: email,
             subject: "Message from Developer Portfolio Website",
-            replyTo: email as string,
+            replyTo: "yeghiazaryanedgar93@gmail.com",
             react: React.createElement(ContactFormEmail, {
-                message: message as string,
-                email: email as string
-            })
+                message: message,
+                email: email,
+            }),
         })
+        console.log("Email sent successfully!")
     } catch (error) {
-        throw new Error("Failed to send email", error)
+        console.error("Failed to send email:", error)
+        throw new Error("Failed to send email")
     }
 }
