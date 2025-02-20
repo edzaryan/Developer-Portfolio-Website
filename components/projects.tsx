@@ -14,6 +14,8 @@ export default function Projects() {
     const { setActiveSection, timeOfLastClick } = useActiveSectionContext()
 
     useEffect(() => {
+        console.log("Projects useEffect has been called !!!");
+
         if (inView && Date.now() - timeOfLastClick > 1000) {
             setActiveSection("Projects")
         }
@@ -23,11 +25,11 @@ export default function Projects() {
         <>
             <div ref={ref} id="projects" className="scroll-mt-28 mb-28">
                 <SectionHeading>My Projects</SectionHeading>
-                <div>
+                <div className="flex flex-col gap-4">
                     {
                         projectsData.map((project, index) => (
                             <React.Fragment key={index}>
-                                <Project {...project} />
+                                <Project {...project} index={index} />
                             </React.Fragment>
                         ))
                     }

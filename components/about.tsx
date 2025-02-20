@@ -11,6 +11,7 @@ export default function About() {
     const { setActiveSection, timeOfLastClick } = useActiveSectionContext()
 
     useEffect(() => {
+        console.log("About useEffect has been called !!!");
         if (inView && Date.now() - timeOfLastClick > 1000) {
             setActiveSection("About")
         }
@@ -19,9 +20,9 @@ export default function About() {
     return (
         <>
             <motion.div className="mb-28 max-w-[45rem] text-center leading-8 sm:mb-40 scale-mt-28"
-                initial={{opacity: 0, y: 100}}
-                animate={{opacity: 1, y: 0}}
-                transition={{delay: 0.175}}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.175 }}
                 id="about"
                 ref={ref}
             >

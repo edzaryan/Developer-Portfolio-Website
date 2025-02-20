@@ -1,64 +1,67 @@
 "use client"
 import React, { useRef } from 'react'
 import Image from "next/image"
-import { useScroll, useTransform, motion } from "framer-motion"
-import { projectsData } from "@/lib/data"
+import { useScroll, motion } from "framer-motion"
 
+type ProjectProps = {
+    title: string;
+    description: string;
+    tags: string[];
+    imageUrl: string;
+    index: number;
+}
 
-type ProjectProps = (typeof projectsData)[0]
+export default function Project({ title, description, tags, imageUrl, index }: ProjectProps) {
 
-export default function Project({ title, description, tags, imageUrl }: ProjectProps) {
     const ref = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["0 1", "1.33 1"]
     })
-    const scaleProgess = useTransform(scrollYProgress, [0, 1], [0.8, 1])
-    const opacityProgess = useTransform(scrollYProgress, [0, 1], [0.6, 1])
+
+    const isEven = index % 2 === 0
 
     return (
-        <>
-            <motion.div
-                ref={ref}
-                style={{
-                    scale: scrollYProgress,
-                    opacity: scrollYProgress,
-                    position: "relative"
-                }}
-                className="group mb-3 sm:mb-8 last:mb-0"
+        <motion.div
+            ref={ref}
+            style={{
+                scale: scrollYProgress,
+                opacity: scrollYProgress,
+                position: "relative"
+            }}
+            className="group"
+        >
+            <div
+                className={`relative z-10 bg-gray-100 hover:bg-gray-200 max-w-[42rem] borderBlack rounded-lg
+                sm:h-[19rem] transition grid ${isEven ? "sm:grid-cols-[7fr_3fr]" : "sm:grid-cols-[3fr_7fr]"} 
+                ${isEven ? "grid-cols-[3fr_2fr]" : "grid-cols-[2fr_3fr]"}`}
             >
-                <div className="relative bg-gray-100 max-w-[42rem] borderBlack rounded-lg overflow-hidden sm:pr-8
-                sm:h-[20rem] mb-3 sm:mb-8 last:mb-0 hover:bg-gray-200 transition group-even:pl-8">
-                    <div
-                        className="pt-4 pb-7 px-5 sm:pl-10 sm:pr-2 sm:pt-10 sm:max-w-[50%] flex flex-col h-full group-even:ml-[18rem]">
-                        <div className="text-2xl font-semibold">{title}</div>
-                        <div className="mt-2 leading-relaxed text-gray-700">{description}</div>
-                        <div className="flex flex-wrap mt-4 gap-2 sm:mt-auto">
-                            {tags?.map((tag, index) => (
-                                <div
-                                    className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full"
-                                    key={index}>{tag}</div>
-                            ))}
-                        </div>
+                <div className={`flex flex-col justify-center gap-5 sm:p-10 p-7 ${isEven ? "order-1" : "order-2"}`}>
+                    <div className="text-2xl font-semibold">{title}</div>
+                    <div>{description}</div>
+                    <div className="flex flex-wrap gap-2">
+                        {tags?.map((tag, index) => (
+                            <div
+                                className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full"
+                                key={index}>
+                                {tag}
+                            </div>
+                        ))}
                     </div>
+                </div>
+
+                <div className={`relative overflow-hidden ${isEven ? "order-2" : "order-1"}`}>
                     <Image
                         src={imageUrl}
                         quality={95}
                         alt="Project I worked on"
-                        className="absolute top-8 -right-40 w-[28.25rem] rounded-t-lg
-                        shadow-2xl transition
-                        group-hover:scale-[1.04]
-                        group-hover:-translate-x-3
-                        group-hover:translate-y-3
-                        group-hover:-rotate-2
-                        group-even:group-hover:translate-x-3
-                        group-even:group-hover:translate-y-3
-                        group-even:group-hover: rotate-2
-                        group-even:right-[initial]
-                        group-even:-left-40"
+                        width={400}
+                        height={300}
+                        className={`absolute top-1/3 ${isEven ? "-right-20" : "-left-20"} rounded-lg shadow-xl transition scale-[1.5]
+                        group-hover:scale-[1.3] ${isEven ? "group-hover:-rotate-3 rotate-3" : "group-hover:rotate-3 -rotate-3"} h-[200px]`}
                     />
                 </div>
-            </motion.div>
-        </>
+            </div>
+        </motion.div>
     )
 }

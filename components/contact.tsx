@@ -55,10 +55,10 @@ export default function Contact() {
                 id="contact"
                 ref={ref}
                 className="mb-28 w-[min(100%,38rem)]"
-                initial={{opacity: 0}}
-                whileInView={{opacity: 1}}
-                transition={{duration: 1}}
-                viewport={{once: true}}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                viewport={{ once: true }}
             >
                 <SectionHeading>Contact me</SectionHeading>
                 <div className="text-gray-700 text-center">

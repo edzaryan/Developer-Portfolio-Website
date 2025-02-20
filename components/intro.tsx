@@ -15,8 +15,10 @@ export default function Intro() {
     const { setActiveSection, timeOfLastClick, setTimeOfLastClick } = useActiveSectionContext()
 
     useEffect(() => {
+        console.log("Intro useEffect has been called !!!");
+        console.log("InView", inView);
         if (inView && Date.now() - timeOfLastClick > 1000) {
-            setActiveSection("About")
+            setActiveSection("Home")
         }
     }, [inView, setActiveSection, timeOfLastClick])
 
@@ -88,7 +90,7 @@ export default function Intro() {
                     </Link>
                     <a
                         className="group bg-white px-7 py-3 flex items-center hover:text-gray-600 gap-2 rounded-full outline-none
-                    cursor-pointer borderBlack"
+                        cursor-pointer borderBlack"
                         href="/CV.pdf"
                         download
                     >

@@ -4,6 +4,7 @@ import "./globals.css"
 import Header from "@/components/header"
 import ActiveSectionContextProvider from "@/context/active-section-context"
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,14 +23,14 @@ export default function RootLayout({
   return (
       <>
           <html lang="en" className="!scroll-smooth">
-            <body className={`${geistSans.variable} bg-gray-50 text-gray-950 pt-28 sm:pt-36 select-none`}>
+            <body className={`${geistSans.variable} bg-gray-50 text-gray-950 pt-44 select-none`}>
               <div className="bg-[#fbe2e3] absolute top-[-6rem] -z-10 right-[11rem] w-[31.25rem] h-[31.25rem]
                 rounded-full blur-[10rem] sm:w-[68.75rem]"/>
               <div className="bg-[#dbd7fb] absolute top-[-1rem] -z-10 left-[-35rem] w-[50rem] h-[31.25rem]
                 rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem]"/>
 
               <ActiveSectionContextProvider>
-                <Header/>
+                <Header />
                 {children}
               </ActiveSectionContextProvider>
             </body>
