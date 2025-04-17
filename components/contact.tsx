@@ -67,7 +67,7 @@ export default function Contact() {
             >
                 <SectionHeading>Contact me</SectionHeading>
                 <div className="text-gray-700 text-center">
-                    Please contact me directly at <a className="underline" href="mailto:edzaryan@gmail.com">edzaryan@gmail.com</a> or through the form below.
+                    Please contact me directly at <a className="underline" href="mailto:contact@example.com">contact@example.com</a> or through the form below.
                 </div>
 
                 {error && (

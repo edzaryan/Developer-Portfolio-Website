@@ -15,8 +15,6 @@ export default function Intro() {
     const { setActiveSection, timeOfLastClick, setTimeOfLastClick } = useActiveSectionContext()
 
     useEffect(() => {
-        console.log("Intro useEffect has been called !!!");
-        console.log("InView", inView);
         if (inView && Date.now() - timeOfLastClick > 1000) {
             setActiveSection("Home")
         }
@@ -37,13 +35,13 @@ export default function Intro() {
                             transition={{type: "tween", duration: 0.2}}
                         >
                             <Image
-                                src="/Edgar-Image.jpg"
+                                src="/Blank-Profile-Image.webp"
                                 alt="Ricardo portrait"
                                 width={200}
                                 height={200}
                                 quality={95}
                                 priority={true}
-                                className="w-[147px] h-[147px] rounded-full border-[0.38rem] border-white object-center shadow-xl"
+                                className="w-[147px] h-[147px] bg-white rounded-full border-[0.38rem] border-white object-center shadow-xl"
                             />
                         </motion.div>
                         <motion.div
@@ -64,8 +62,8 @@ export default function Intro() {
                     initial={{opacity: 0, y: 100}}
                     animate={{opacity: 1, y: 1}}
                 >
-                    <span className="font-bold">Hello, I'm Edgar.</span> I'm a{" "}
-                    <span className="font-bold">full-stack developer</span> with {" "}
+                    <span className="font-bold">Hello, I'm John Doe.</span> I'm a{" "}
+                    <span className="font-bold">full-stack developer</span> with{" "}
                     <span className="font-bold">2 years</span> of experience. I enjoy building{" "}
                     <span className="italic">sites & apps</span>. My focus is{" "}
                     <span className="underline">React (Next.js)</span>
